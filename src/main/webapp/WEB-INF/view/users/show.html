@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+
+    <style>
+        .car-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .car-table th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #34495e;
+        }
+
+        .car-table td {
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            text-align: left;
+        }
+
+        .car-table tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        .car-table tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        .car-table tr:hover {
+            background-color: #d6dbdf;
+        }
+    </style>
+</head>
+<body>
+<table class="car-table">
+    <tr>
+        <td><h3>ID</h3></td>
+        <td><h3>Name</h3></td>
+        <td><h3>Surname</h3></td>
+        <td><h3>Age</h3></td>
+    </tr>
+    <tr>
+        <td th:text="${user.getId()}">ID</td>
+        <td th:text="${user.getFirstName()}">Name</h3></td>
+        <td th:text="${user.getLastName()}">Surname</h3></td>
+        <td th:text="${user.getAge()}">Age</td>
+    </tr>
+</table>
+</body>
+</html>
