@@ -1,6 +1,9 @@
 package web.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -10,12 +13,17 @@ public class User {
     private int id;
 
     @Column(name = "firstName")
+    @Size(min = 2, max = 50, message = "Имя не соответсвует правильной длинне от 2 до 50")
+    @NotEmpty(message = "Имя пустое")
     private String firstName;
 
     @Column(name = "lastName")
+    @Size(min = 2, max = 50, message = "Фамилия не соответсвует правильной длинне от 2 до 50")
+    @NotEmpty(message = "Фамилия пустое")
     private String lastName;
 
     @Column(name = "age")
+    @Min(value = 0, message = "Возраст указан не верно")
     private int age;
 
     public User() {

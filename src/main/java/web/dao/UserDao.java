@@ -1,52 +1,38 @@
 package web.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import web.config.HibernateConfig;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDao {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public UserDao(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<User> index() {
-        Session session = sessionFactory.openSession();
-        try {
-            return session.createQuery("from users ", User.class).list();
-        } finally {
-            session.close();
-        }
+        return entityManager.createQuery("from User ", User.class).getResultList();
     }
 
     public User show(int id) {
-
-        Session session = sessionFactory.openSession();
-        try {
-            return session.get(User.class, id);
-        } finally {
-            session.close();
-        }
+        return entityManager.find(User.class, id);
     }
 
     public void save(User user) {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
-            session.save(user);
-            session.getTransaction().commit();
-        } finally {
-            session.close();
-        }
+        entityManager.persist(user);
+    }
+
+    public void update(User updateUser) {
+        entityManager.merge(updateUser);
+    }
+
+    public void delete(int id) {
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
     }
 }

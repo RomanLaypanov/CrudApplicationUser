@@ -34,6 +34,7 @@ public class HibernateConfig {
         dataSource.setUrl(env.getRequiredProperty("db.url"));
         dataSource.setUsername(env.getRequiredProperty("db.username"));
         dataSource.setPassword(env.getRequiredProperty("db.password"));
+
         return dataSource;
     }
 
@@ -43,14 +44,19 @@ public class HibernateConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("web.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
+
         return sessionFactory;
     }
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.format_sql", "true");
+        properties.put("hibernate.current_session_context_class", "org.springframework.orm.hibernate5.SpringSessionContext");
+        properties.put("hibernate.temp.use_jdbc_metadata_defaults", "false");
+
         return properties;
     }
 
@@ -58,6 +64,7 @@ public class HibernateConfig {
     public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
+
         return transactionManager;
     }
 }

@@ -31,6 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setCacheable(false);
+
         return templateResolver;
     }
 
@@ -39,6 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
+
         return templateEngine;
     }
 

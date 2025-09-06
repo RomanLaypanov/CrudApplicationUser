@@ -46,8 +46,13 @@
         <td><h3>User</h3></td>
     </tr>
     <tr th:each="user : ${usersList}">
-        <td th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getLastName()} ${user.getLastName()}">User</td>
+        <td>
+            <a th:href="@{/users/show(id=${user.id})}" th:text="${user.firstName + ' ' + user.lastName}">User Name</a>
+        </td>
     </tr>
 </table>
+<br/>
+<hr/>
+<a href="/users/new">Creat new user</a>
 </body>
 </html>

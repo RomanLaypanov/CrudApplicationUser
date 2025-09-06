@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>User</title>
@@ -49,10 +49,19 @@
     </tr>
     <tr>
         <td th:text="${user.getId()}">ID</td>
-        <td th:text="${user.getFirstName()}">Name</h3></td>
-        <td th:text="${user.getLastName()}">Surname</h3></td>
+        <td th:text="${user.getFirstName()}">Name</td>
+        <td th:text="${user.getLastName()}">Surname</td>
         <td th:text="${user.getAge()}">Age</td>
     </tr>
 </table>
+<br/>
+<a th:href="@{/users/edit(id=${user.getId()})}">Update user</a>
+<br/>
+<form th:method="POST" th:action="@{/users/delete}" th:object="${user}">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="submit" value="Delete"/>
+</form>
+<br/>
+<a th:href="@{/users}">Back to users list</a>
 </body>
 </html>
