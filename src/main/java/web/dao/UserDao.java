@@ -9,7 +9,7 @@ import web.model.User;
 import java.util.List;
 
 @Repository
-@Transactional
+@Transactional()
 public class UserDao {
 
     @PersistenceContext
