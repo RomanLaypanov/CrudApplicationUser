@@ -12,12 +12,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     @Size(min = 2, max = 50, message = "Имя не соответсвует правильной длинне от 2 до 50")
     @NotEmpty(message = "Имя пустое")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     @Size(min = 2, max = 50, message = "Фамилия не соответсвует правильной длинне от 2 до 50")
     @NotEmpty(message = "Фамилия пустое")
     private String lastName;

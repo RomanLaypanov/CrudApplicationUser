@@ -41,7 +41,7 @@ public class UserController {
         return "users/new";
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "users/new";
