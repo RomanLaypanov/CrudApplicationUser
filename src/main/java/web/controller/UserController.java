@@ -6,30 +6,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDao;
+import web.dao.UserDaoImp;
 import web.model.User;
+import web.services.UserServices;
+import web.services.UserServicesImpl;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserDao userDao;
+    private final UserServices userServices;
 
     @Autowired
-    public UserController(UserDao userDao) {
-        this.userDao = userDao;
+    public UserController(UserServices userServices) {
+        this.userServices = userServices;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("usersList", userDao.index());
+        model.addAttribute("usersList", userServices.index());
 
         return "users/index";
     }
 
     @GetMapping("/show")
     public String show(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", userDao.show(id));
+        model.addAttribute("user", userServices.show(id));
 
         return "users/show";
     }
@@ -47,14 +49,14 @@ public class UserController {
             return "users/new";
         }
 
-        userDao.save(user);
+        userServices.save(user);
 
         return "redirect:/users";
     }
 
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam("id") int id) {
-        model.addAttribute("user", userDao.show(id));
+        model.addAttribute("user", userServices.show(id));
 
         return "users/edit";
     }
@@ -66,14 +68,14 @@ public class UserController {
         }
 
         user.setId(id);
-        userDao.update(user);
+        userServices.update(user);
 
         return "redirect:/users";
     }
 
     @PostMapping("/delete")
     public String delete(@RequestParam("id") int id) {
-        userDao.delete(id);
+        userServices.delete(id);
 
         return "redirect:/users";
     }
